@@ -46,7 +46,7 @@ AUTH_EXEMPT_URLS = ('/file-service/*', '/i18n/setlang/', '/account/signup')
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': '<%= @database[:engine] or 'django.db.backends.postgresql_psycopg2' %> ',
         'NAME': '<%= @database[:name] %>',
         'USER': '<%= @database[:user] %>',
         'PASSWORD': '<%= @database[:password] %>',
@@ -56,7 +56,7 @@ DATABASES = {
 
     <% if @data_store[:name] -%>
     '<%= @data_store[:name] %>': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'ENGINE': '<%= @database[:engine] or 'django.db.backends.postgis' %> ',
         'NAME': '<%= @data_store[:name] %>',
         'USER': '<%= @data_store[:user] %>',
         'PASSWORD': '<%= @data_store[:password] %>',
