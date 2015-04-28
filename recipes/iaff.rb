@@ -1,3 +1,11 @@
+postgresql_connection_info = {
+  :host     => node['rogue']['networking']['database']['hostname'],
+  :port     => node['rogue']['postgresql']['port'],
+  :username => node['rogue']['postgresql']['user'],
+  :password => node['rogue']['postgresql']['password']
+}
+
+geonode_connection_info = node['rogue']['rogue_geonode']['settings']['DATABASES']['default']
 
 execute 'create_postgis_template' do
   not_if "psql -d geonode -c 'SELECT PostGIS_full_version();'", :user => 'postgres'
@@ -10,14 +18,13 @@ execute "sync_db" do
   command "#{node['rogue']['geonode']['location']}bin/python #{node['rogue']['rogue_geonode']['location']}/manage.py syncdb --no-initial-data --all"
 end
 
-execute 'create_firestation_view' do
-  user 'postgres'
-  command <<-EOF
-
-DROP VIEW IF EXISTS firestations;
+postgresql_database 'add_firestation_view' do
+  connection   postgresql_connection_info
+  database_name geonode_connection_info[:name]
+  sql <<-EOH
+  DROP VIEW IF EXISTS firestations;
 
 SET statement_timeout = 0;
-SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -51,8 +58,8 @@ CREATE VIEW firestations AS
      JOIN firestation_firestation b ON (b.usgsstructuredata_ptr_id = a.id)
      LEFT JOIN firestation_staffing d ON (b.usgsstructuredata_ptr_id = d.firestation_id))
   GROUP BY a.id;
-  EOF
-  action :run
+  EOH
+  action :query
 end
 
 
@@ -79,9 +86,11 @@ end
 execute "extract_fixture_firestation" do
   command "gunzip -c #{Chef::Config['file_cache_path']}/firestation.sql.gz | sudo -u postgres psql -d geonode"
   only_if do File.exists?("#{Chef::Config['file_cache_path']}/firestation.sql.gz") end
+  action :nothing
 end
 
 execute "extract_fixture_usgs" do
   command "gunzip -c #{Chef::Config['file_cache_path']}/usgs.sql.gz | sudo -u postgres psql -d geonode"
   only_if do File.exists?("#{Chef::Config['file_cache_path']}/usgs.sql.gz") end
+  action :nothing
 end
