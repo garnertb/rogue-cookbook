@@ -20,7 +20,7 @@ end
 
 remote_file "#{Chef::Config['file_cache_path']}/firestation.sql.gz" do
   source "https://s3.amazonaws.com/firecares-share/fixtures/firestation.sql.gz"
-  notifies :run, "executte[extract_fixture_usgs]", :immediately
+  notifies :run, "execute[extract_fixture_usgs]", :immediately
   action :create_if_missing
 end
 
@@ -32,11 +32,11 @@ remote_file "#{Chef::Config['file_cache_path']}/usgs.sql.gz" do
 end
 
 execute "extract_fixture_firestation" do
-  command "gunzip -c #{Chef::Config['file_cache_path']}/firestation.sql.gz | sudo -u postgres -d geonode"
+  command "gunzip -c #{Chef::Config['file_cache_path']}/firestation.sql.gz | sudo -u postgres psql -d geonode"
   only_if do File.exists?("#{Chef::Config['file_cache_path']}/firestation.sql.gz") end
 end
 
 execute "extract_fixture_usgs" do
-  command "gunzip -c #{Chef::Config['file_cache_path']}/usgs.sql.gz | sudo -u postgres -d geonode"
+  command "gunzip -c #{Chef::Config['file_cache_path']}/usgs.sql.gz | sudo -u postgres psql -d geonode"
   only_if do File.exists?("#{Chef::Config['file_cache_path']}/usgs.sql.gz") end
 end

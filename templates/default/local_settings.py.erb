@@ -1,4 +1,5 @@
 # These settings override the default settings
+from settings import INSTALLED_APPS
 
 # The geonode location.
 SITEURL = '<%= @settings['SITEURL'] %>'
@@ -19,6 +20,12 @@ PROXY_ALLOWED_HOSTS = (
 ADMINS = (
 <% @settings['ADMINS'].each do |name, email| %>
 ('<%= name %>', '<%= email %>'),
+<%end%>
+)
+
+INSTALLED_APPS += (
+<% @settings['INSTALLED_APPS'].each do |app| %>
+'<%= app %>',
 <%end%>
 )
 
@@ -46,7 +53,7 @@ AUTH_EXEMPT_URLS = ('/file-service/*', '/i18n/setlang/', '/account/signup')
 
 DATABASES = {
     'default': {
-        'ENGINE': '<%= @database[:engine] or 'django.db.backends.postgresql_psycopg2' %> ',
+        'ENGINE': '<%= @database[:engine] %>',
         'NAME': '<%= @database[:name] %>',
         'USER': '<%= @database[:user] %>',
         'PASSWORD': '<%= @database[:password] %>',
@@ -56,7 +63,7 @@ DATABASES = {
 
     <% if @data_store[:name] -%>
     '<%= @data_store[:name] %>': {
-        'ENGINE': '<%= @database[:engine] or 'django.db.backends.postgis' %> ',
+        'ENGINE': '<%= @data_store[:engine] %>',
         'NAME': '<%= @data_store[:name] %>',
         'USER': '<%= @data_store[:user] %>',
         'PASSWORD': '<%= @data_store[:password] %>',

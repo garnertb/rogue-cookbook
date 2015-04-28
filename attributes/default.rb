@@ -74,11 +74,12 @@ default['rogue']['rogue_geonode']['settings']['OGC_SERVER']['PASSWORD'] = "geose
 default['rogue']['rogue_geonode']['settings']['UPLOADER']['BACKEND'] = 'geonode.importer'
 default['rogue']['rogue_geonode']['settings']['STATIC_ROOT'] = '/var/www/rogue'
 default['rogue']['rogue_geonode']['settings']['MEDIA_ROOT'] = '/var/www/rogue/media'
+default['rogue']['rogue_geonode']['settings']['INSTALLED_APPS'] = []
 default['rogue']['nginx']['locations'] = {}
 
 default['rogue']['rogue_geonode']['settings']['DATABASES'] = {
-    :default=>{:name=>'geonode', :user=>'geonode', :password=>'geonode', :host=>'rogue-database', :port=>'5432'},
-    :geonode_imports=>{:name=>'geonode_imports', :user=>'geonode', :password=>'geonode', :host=>'rogue-database', :port=>'5432'}
+    :default=>{:name=>'geonode', :user=>'geonode', :password=>'geonode', :host=>'rogue-database', :port=>'5432', :engine => 'django.db.backends.postgresql_psycopg2'},
+    :geonode_imports=>{:name=>'geonode_imports', :user=>'geonode', :password=>'geonode', :host=>'rogue-database', :port=>'5432', :engine=> 'django.contrib.gis.db.backends.postgis'}
     }
 default['rogue']['geogit']['build_from_source'] = false
 default['rogue']['geogit']['branch'] = 'SprintRelease'
