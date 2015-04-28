@@ -86,11 +86,9 @@ end
 execute "extract_fixture_firestation" do
   command "gunzip -c #{Chef::Config['file_cache_path']}/firestation.sql.gz | sudo -u postgres psql -d geonode"
   only_if do File.exists?("#{Chef::Config['file_cache_path']}/firestation.sql.gz") end
-  action :nothing
 end
 
 execute "extract_fixture_usgs" do
   command "gunzip -c #{Chef::Config['file_cache_path']}/usgs.sql.gz | sudo -u postgres psql -d geonode"
   only_if do File.exists?("#{Chef::Config['file_cache_path']}/usgs.sql.gz") end
-  action :nothing
 end
