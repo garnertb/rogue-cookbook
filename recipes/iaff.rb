@@ -44,7 +44,7 @@ CREATE VIEW firestations AS
     a.state,
     a.zipcode,
     a.geom,
-    '#{node['rogue']['networking']['application']['fqdn']}/jurisdictions/fire-stations/' || a.id AS "URL",
+    'http://#{node['rogue']['networking']['application']['fqdn']}/jurisdictions/fire-stations/' || a.id AS "URL",
     COALESCE(sum(d.firefighter), 0) AS "Total Firefighters",
     COALESCE(sum(d.firefighter_emt), 0) AS "Total Firefighter/EMTS",
     COALESCE(sum(d.firefighter_paramedic), 0) AS "Total Firefighter/Paramedics",
