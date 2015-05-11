@@ -62,6 +62,15 @@ CREATE VIEW firestations AS
   action :query
 end
 
+postgresql_database_user 'geoserver' do
+  connection postgresql_connection_info
+  action :create
+end
+
+execute "grant geoserver perms" do
+  command "psql -d geonode -c 'grant select on firestations to geoserver'"
+  user 'postgres'
+end
 
 file "/etc/cron.d/geoshape_update_data" do
   content "*/30 * * * * rogue /var/lib/geonode/bin/python /var/lib/geonode/rogue_geonode/manage.py update_data > /dev/null\n"
