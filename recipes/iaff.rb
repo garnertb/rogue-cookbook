@@ -81,7 +81,7 @@ end
 
 remote_file "#{Chef::Config['file_cache_path']}/firestation.sql.gz" do
   source "https://s3.amazonaws.com/firecares-share/fixtures/firestation.sql.gz"
-  notifies :run, "execute[extract_fixture_usgs]", :immediately
+  notifies :run, "execute[extract_fixture_firestation]", :immediately
   action :create_if_missing
 end
 
