@@ -30,6 +30,20 @@ postgresql_database geonode_connection_info[:name] do
   action :create
 end
 
+postgresql_database geonode_connection_info[:name] do
+  connection postgresql_connection_info
+  database_name 'geonode'
+  sql 'CREATE EXTENSION IF NOT EXISTS POSTGIS;'
+  action :query
+end
+
+postgresql_database 'set user' do
+  connection   postgresql_connection_info
+  database_name geonode_imports_connection_info[:name]
+  sql 'grant select on geometry_columns, spatial_ref_sys to ' + geonode_imports_connection_info[:user] + ';'
+  action :query
+end
+
 # Create the GeoNode imports user
 postgresql_database_user geonode_imports_connection_info[:user] do
   connection postgresql_connection_info
