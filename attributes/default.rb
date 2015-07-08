@@ -46,7 +46,7 @@ default['rogue']['geoserver']['url']= "http://#{node['rogue']['networking']['app
 default['rogue']['geoserver']['war'] = "http://jenkins.rogue.lmnsolutions.com/job/geoserver/lastSuccessfulBuild/artifact/geoserver_ext/target/geoserver.war"
 
 default['rogue']['geoserver_data']['url'] = 'https://github.com/ROGUE-JCTD/geoserver_data.git'
-default['rogue']['geoserver_data']['branch'] = 'master'
+default['rogue']['geoserver_data']['branch'] = 'release-1.0'
 
 default['rogue']['geonode']['location'] = '/var/lib/geonode/'
 default['rogue']['interpreter'] = ::File.join(node['rogue']['geonode']['location'], 'bin/python')
