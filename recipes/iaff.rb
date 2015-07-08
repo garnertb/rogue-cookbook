@@ -10,7 +10,7 @@ geonode_connection_info = node['rogue']['rogue_geonode']['settings']['DATABASES'
 execute 'create_postgis_template' do
   not_if "psql -d geonode -c 'SELECT PostGIS_full_version();'", :user => 'postgres'
   user 'postgres'
-  command 'psql -c "create extension postgis" -d geonode'
+  command 'psql -c "create extension if not exists postgis" -d geonode'
   action :run
 end
 
