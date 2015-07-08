@@ -115,8 +115,8 @@ default['rogue']['rogue-scripts']['location'] = '/opt/rogue-scripts'
 default['rogue']['rogue-scripts']['url'] = 'https://github.com/ROGUE-JCTD/rogue-scripts.git'
 
 if node['rogue']['version'] == '1.x'
-  default['rogue']['rogue_geonode']['branch'] = '1.x'
-  default['rogue']['geoserver_data']['branch'] = '1.x'
+  default['rogue']['rogue_geonode']['branch'] = '1.0'
+  default['rogue']['geoserver_data']['branch'] = '1.0'
   default['rogue']['django_maploom']['auto_upgrade'] = false
   default['rogue']['geoserver']['war'] = "http://jenkins.rogue.lmnsolutions.com/userContent/geoshape-1.x/geoserver.war"
 
