@@ -1,5 +1,5 @@
 war 'file-service.war' do
-  remote_file_location "http://jenkins.rogue.lmnsolutions.com/job/file-service/lastSuccessfulBuild/artifact/target/file-service.war"
+  remote_file_location "https://s3.amazonaws.com/firecares-share/vms/build/file-service.war"
   action :deploy
   notifies :create, "directory[file_service_store]", :immediately
 end

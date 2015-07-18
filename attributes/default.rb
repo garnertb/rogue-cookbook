@@ -43,7 +43,7 @@ default['rogue']['geoserver']['data_dir'] = '/var/lib/geoserver_data'
 default['rogue']['geoserver']['jai']['url'] = "http://download.java.net/media/jai/builds/release/1_1_3/jai-1_1_3-lib-linux-amd64-jdk.bin"
 default['rogue']['geoserver']['jai_io']['url'] = "http://download.java.net/media/jai-imageio/builds/release/1.1/jai_imageio-1_1-lib-linux-amd64-jdk.bin"
 default['rogue']['geoserver']['url']= "http://#{node['rogue']['networking']['application']['fqdn']}#{node['rogue']['geoserver']['base_url']}/"
-default['rogue']['geoserver']['war'] = "http://jenkins.rogue.lmnsolutions.com/job/geoserver/lastSuccessfulBuild/artifact/geoserver_ext/target/geoserver.war"
+default['rogue']['geoserver']['war'] = "https://s3.amazonaws.com/firecares-share/vms/build/geoserver.war"
 
 default['rogue']['geoserver_data']['url'] = 'https://github.com/ROGUE-JCTD/geoserver_data.git'
 default['rogue']['geoserver_data']['branch'] = 'release-1.0'
@@ -87,7 +87,7 @@ default['rogue']['geogit']['branch'] = 'SprintRelease'
 if node['rogue']['geogit']['build_from_source']
   default['rogue']['geogit']['url'] = 'https://github.com/ROGUE-JCTD/GeoGit.git'
 else
-  default['rogue']['geogit']['url'] = 'http://jenkins.rogue.lmnsolutions.com/job/geogit/lastSuccessfulBuild/artifact/src/cli-app/target/geogit-cli-app.zip'
+  default['rogue']['geogit']['url'] = 'https://s3.amazonaws.com/firecares-share/vms/build/geogit-cli-app.zip'
 end
 
 default['rogue']['geogit']['global_configuration'] = {"user"=> {"name"=>"rogue",
@@ -118,7 +118,7 @@ if node['rogue']['version'] == '1.x'
   default['rogue']['rogue_geonode']['branch'] = 'release-1.1'
   default['rogue']['geoserver_data']['branch'] = 'release-1.0'
   default['rogue']['django_maploom']['auto_upgrade'] = false
-  default['rogue']['geoserver']['war'] = "http://jenkins.rogue.lmnsolutions.com/userContent/geoshape-1.x/geoserver.war"
+  default['rogue']['geoserver']['war'] = "https://s3.amazonaws.com/firecares-share/vms/build/geoserver.wargeoserver.war"
 
   if node['rogue']['geogit']['build_from_source']
     default['rogue']['geogit']['url'] = 'https://github.com/boundlessgeo/GeoGig.git'
