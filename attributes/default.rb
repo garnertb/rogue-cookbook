@@ -118,7 +118,7 @@ if node['rogue']['version'] == '1.x'
   default['rogue']['rogue_geonode']['branch'] = 'release-1.1'
   default['rogue']['geoserver_data']['branch'] = 'release-1.0'
   default['rogue']['django_maploom']['auto_upgrade'] = false
-  default['rogue']['geoserver']['war'] = "https://s3.amazonaws.com/firecares-share/vms/build/geoserver.wargeoserver.war"
+  default['rogue']['geoserver']['war'] = "https://s3.amazonaws.com/firecares-share/vms/build/geoserver.war"
 
   if node['rogue']['geogit']['build_from_source']
     default['rogue']['geogit']['url'] = 'https://github.com/boundlessgeo/GeoGig.git'
