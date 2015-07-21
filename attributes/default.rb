@@ -124,7 +124,7 @@ if node['rogue']['version'] == '1.x'
     default['rogue']['geogit']['url'] = 'https://github.com/boundlessgeo/GeoGig.git'
     default['rogue']['geogit']['branch'] = '0.10.x'
   else
-    default['rogue']['geogit']['url'] = 'http://jenkins.rogue.lmnsolutions.com/userContent/geoshape-1.x/geogit-cli-app-0.1.zip'
+    default['rogue']['geogit']['url'] = 'https://s3.amazonaws.com/firecares-share/vms/build/geogit-cli-app.zip'
   end
 
 end
